@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be My Valentine 💖</title>
 
+<!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
@@ -18,12 +19,13 @@
 body{
   margin:0;
   min-height:100vh;
+
   background:
-    url("https://i.imgur.com/7b1YQ9E.png"),
+    url("https://www.transparenttextures.com/patterns/flowers.png"),
     linear-gradient(135deg,#ffd6e8,#ffeef5);
-  background-size:300px,cover;
+
+  background-size:200px,cover;
   background-repeat:repeat;
-  animation:flowersMove 40s linear infinite;
 
   display:flex;
   align-items:center;
@@ -31,11 +33,7 @@ body{
   padding:40px;
 }
 
-@keyframes flowersMove{
-  from{background-position:0 0,0 0;}
-  to{background-position:1000px 0,0 0;}
-}
-
+/* Carte */
 .card{
   background:white;
   width:520px;
@@ -58,10 +56,10 @@ body{
 .main-img{ width:120px; }
 .chat-gif{ width:120px; }
 
-/* 👇 Usure plus gros */
+/* Usure plus gros */
 #usureImg{
   display:none;
-  width:200px;
+  width:220px;
 }
 
 h1{
@@ -110,7 +108,7 @@ button{
   <div class="top-media">
     <img src="Poisson.png" class="main-img">
 
-    <!-- 👇 Usure au centre -->
+    <!-- Usure apparaît après 7 fuites -->
     <img id="usureImg" src="Usure.png">
 
     <img src="Chat.gif" class="chat-gif">
@@ -144,7 +142,7 @@ function escapeNoButton(){
 
   escapeCount++;
 
-  // 👇 Apparaît après 7 fuites
+  // 👇 Après 7 fuites
   if(escapeCount>=7){
     usureImg.style.display="block";
   }
