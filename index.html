@@ -35,16 +35,25 @@
         position: relative;
       }
 
-      .emoji {
+      /* Ligne d'images en haut */
+      .top-media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 22px;
         margin-bottom: 24px;
       }
 
-      /* Image poisson */
       .main-img {
         width: 120px;
         height: auto;
         display: block;
-        margin: 0 auto 10px;
+      }
+
+      .chat-gif {
+        width: 120px;
+        height: auto;
+        display: block;
       }
 
       h1 {
@@ -93,12 +102,11 @@
   </head>
 
   <body>
-    <div class="card">
-
-      <!-- Image au lieu du poussin -->
-      <div class="emoji">
-        <img src="Poisson.png" alt="Poisson" class="main-img">
-        💗
+    <div class="card" id="card">
+      <!-- Poisson à gauche, Chat.gif à droite (plus de coeur) -->
+      <div class="top-media">
+        <img src="Poisson.png" alt="Poisson" class="main-img" />
+        <img src="Chat.gif" alt="Chat" class="chat-gif" />
       </div>
 
       <h1>Poupou, veux-tu être ma valentine?</h1>
@@ -108,11 +116,9 @@
         <button id="noBtn">Non 🙃</button>
       </div>
 
-      <!-- Message caché -->
       <div id="noMessage" class="note" style="display:none;">
         Non n’est pas une option 😈
       </div>
-
     </div>
 
     <script>
@@ -134,7 +140,7 @@
           escaped = true;
         }
 
-        // Message apparaît dès que le bouton fuit
+        // Message apparaît dès que le bouton bouge
         noMessage.style.display = "block";
 
         const padding = 20;
@@ -158,7 +164,7 @@
         noBtn.style.top = `${y}px`;
       }
 
-      // Fuite souris
+      // Fuite quand la souris approche
       document.addEventListener("mousemove", (e) => {
         const rect = noBtn.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
@@ -171,16 +177,18 @@
       // Mobile
       document.addEventListener("touchstart", escapeNoButton);
 
-      // Confetti Oui
+      // Confetti quand elle clique Oui
       yesBtn.addEventListener("click", () => {
         const end = Date.now() + 3500;
 
         (function frame() {
-          confetti({
-            particleCount: 12,
-            spread: 90,
-            colors: ["#ff4d88", "#ff99bb", "#ffccd9"],
-          });
+          if (typeof confetti === "function") {
+            confetti({
+              particleCount: 12,
+              spread: 90,
+              colors: ["#ff4d88", "#ff99bb", "#ffccd9"],
+            });
+          }
           if (Date.now() < end) requestAnimationFrame(frame);
         })();
       });
