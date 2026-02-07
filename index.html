@@ -14,7 +14,7 @@
   font-family:"Poppins","Comic Sans MS",sans-serif;
 }
 
-/* Background fleurs */
+/* 🌸 Background fleurs */
 body{
   margin:0;
   min-height:100vh;
@@ -32,6 +32,7 @@ body{
   padding:40px;
 }
 
+/* Carte */
 .card{
   background:white;
   width:520px;
@@ -40,9 +41,34 @@ body{
   border-radius:36px;
   text-align:center;
   box-shadow:0 40px 80px rgba(0,0,0,0.18);
+  position:relative;
+  overflow:hidden;
 }
 
-/* Ligne images */
+/* Overlay Happy */
+#happyOverlay{
+  position:absolute;
+  inset:0;
+  background:white;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:3;
+}
+
+#happyOverlay h2{
+  font-size:32px;
+  color:#ff4d88;
+  margin-bottom:20px;
+}
+
+#happyOverlay img{
+  width:100%;
+  border-radius:20px;
+}
+
+/* Images haut */
 .top-media{
   display:flex;
   align-items:center;
@@ -54,7 +80,6 @@ body{
 .main-img{ width:120px; }
 .chat-gif{ width:120px; }
 
-/* Usure au centre */
 #usureImg{
   display:none;
   width:220px;
@@ -88,6 +113,18 @@ button{
   color:#999;
 }
 
+/* Demon inline */
+.msg-text{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+.demon-img{
+  width:24px;
+  height:24px;
+}
+
 </style>
 </head>
 
@@ -95,13 +132,16 @@ button{
 
 <div class="card">
 
+  <!-- Overlay Happy -->
+  <div id="happyOverlay">
+    <h2>Pookie Happy!!!!!</h2>
+    <img src="Happy.jpg">
+  </div>
+
   <!-- Images -->
   <div class="top-media">
     <img src="Poisson.png" class="main-img">
-
-    <!-- Usure apparaît après 5 -->
     <img id="usureImg" src="Usure.png">
-
     <img src="Chat.gif" class="chat-gif">
   </div>
 
@@ -113,8 +153,10 @@ button{
   </div>
 
   <div id="noMessage" class="note" style="display:none;">
-    Non n’est pas une option
-    <img src="Demond.png" style="width:24px; vertical-align:middle;">
+    <span class="msg-text">
+      Non n’est pas une option
+      <img src="Demond.png" class="demon-img">
+    </span>
   </div>
 
 </div>
@@ -125,6 +167,7 @@ const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
 const noMessage=document.getElementById("noMessage");
 const usureImg=document.getElementById("usureImg");
+const happyOverlay=document.getElementById("happyOverlay");
 
 let escapeCount=0;
 
@@ -134,10 +177,23 @@ function escapeNoButton(){
 
   escapeCount++;
 
-  /* 👇 Après 5 fuites */
+  /* Image après 5 */
   if(escapeCount>=5){
     usureImg.style.display="block";
-    noBtn.innerText="Tu m’uses 😤";
+  }
+
+  /* Texte évolutif */
+  if(escapeCount>=20){
+    noBtn.innerText="Ok je comprend, je vais aller voir Thea 💀";
+  }
+  else if(escapeCount>=15){
+    noBtn.innerText="Damnnnnn 😭";
+  }
+  else if(escapeCount>=10){
+    noBtn.innerText="Quoi?!?! 😳";
+  }
+  else if(escapeCount>=5){
+    noBtn.innerText="Tu peux pas m’attraper 😤";
   }
 
   const rect=noBtn.getBoundingClientRect();
@@ -161,16 +217,21 @@ document.addEventListener("mousemove",(e)=>{
 
 document.addEventListener("touchstart",escapeNoButton);
 
+/* Oui → écran Happy */
 yesBtn.addEventListener("click",()=>{
-  const end=Date.now()+3500;
+
+  happyOverlay.style.display="flex";
+
+  const duration=4000;
+  const end=Date.now()+duration;
 
   (function frame(){
-    confetti({
-      particleCount:12,
-      spread:90,
-      colors:["#ff4d88","#ff99bb","#ffccd9"]
-    });
-    if(Date.now()<end)requestAnimationFrame(frame);
+    confetti({particleCount:5,angle:60,spread:70,origin:{x:0}});
+    confetti({particleCount:5,angle:120,spread:70,origin:{x:1}});
+
+    if(Date.now()<end){
+      requestAnimationFrame(frame);
+    }
   })();
 });
 
