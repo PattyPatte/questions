@@ -36,8 +36,15 @@
       }
 
       .emoji {
-        font-size: 80px;
         margin-bottom: 24px;
+      }
+
+      /* Image poisson */
+      .main-img {
+        width: 120px;
+        height: auto;
+        display: block;
+        margin: 0 auto 10px;
       }
 
       h1 {
@@ -86,8 +93,13 @@
   </head>
 
   <body>
-    <div class="card" id="card">
-      <div class="emoji">🐣💗</div>
+    <div class="card">
+
+      <!-- Image au lieu du poussin -->
+      <div class="emoji">
+        <img src="poisson.png" alt="Poisson" class="main-img">
+        💗
+      </div>
 
       <h1>Poupou, veux-tu être ma valentine?</h1>
 
@@ -100,6 +112,7 @@
       <div id="noMessage" class="note" style="display:none;">
         Non n’est pas une option 😈
       </div>
+
     </div>
 
     <script>
@@ -121,7 +134,7 @@
           escaped = true;
         }
 
-        // 👉 Message apparaît dès que le bouton bouge
+        // Message apparaît dès que le bouton fuit
         noMessage.style.display = "block";
 
         const padding = 20;
@@ -145,7 +158,7 @@
         noBtn.style.top = `${y}px`;
       }
 
-      // Fuite quand la souris approche
+      // Fuite souris
       document.addEventListener("mousemove", (e) => {
         const rect = noBtn.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
@@ -158,7 +171,7 @@
       // Mobile
       document.addEventListener("touchstart", escapeNoButton);
 
-      // Confetti quand elle clique Oui
+      // Confetti Oui
       yesBtn.addEventListener("click", () => {
         const end = Date.now() + 3500;
 
@@ -174,4 +187,3 @@
     </script>
   </body>
 </html>
-
