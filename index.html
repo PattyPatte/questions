@@ -91,7 +91,7 @@
 
       <h1>Poupou, veux-tu être ma valentine?</h1>
 
-      <div class="buttons" id="buttons">
+      <div class="buttons">
         <button id="yesBtn">Oui 💖</button>
         <button id="noBtn">Non 🙃</button>
       </div>
@@ -120,6 +120,9 @@
 
           escaped = true;
         }
+
+        // 👉 Message apparaît dès que le bouton bouge
+        noMessage.style.display = "block";
 
         const padding = 20;
         const yesRect = yesBtn.getBoundingClientRect();
@@ -167,11 +170,6 @@
           });
           if (Date.now() < end) requestAnimationFrame(frame);
         })();
-      });
-
-      // Message seulement si elle clique Non
-      noBtn.addEventListener("click", () => {
-        noMessage.style.display = "block";
       });
     </script>
   </body>
