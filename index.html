@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -75,7 +75,6 @@
       #noBtn {
         background: #ccc;
         color: #555;
-        pointer-events: none; /* NEVER CLICKABLE */
       }
 
       .note {
@@ -85,9 +84,11 @@
       }
     </style>
   </head>
+
   <body>
     <div class="card" id="card">
       <div class="emoji">🐣💗</div>
+
       <h1>Poupou, veux-tu être ma valentine?</h1>
 
       <div class="buttons" id="buttons">
@@ -95,19 +96,22 @@
         <button id="noBtn">Non 🙃</button>
       </div>
 
-      <div class="note">*No is not an option 😈*</div>
+      <!-- Message caché -->
+      <div id="noMessage" class="note" style="display:none;">
+        Non n’est pas une option 😈
+      </div>
     </div>
 
     <script>
       const noBtn = document.getElementById("noBtn");
       const yesBtn = document.getElementById("yesBtn");
+      const noMessage = document.getElementById("noMessage");
 
       let escaped = false;
       let initialRect = null;
 
       function escapeNoButton() {
         if (!escaped) {
-          // LOCK INITIAL POSITION (INSIDE CARD)
           initialRect = noBtn.getBoundingClientRect();
 
           noBtn.style.position = "fixed";
@@ -138,7 +142,7 @@
         noBtn.style.top = `${y}px`;
       }
 
-      // Desktop: flee when cursor is near
+      // Fuite quand la souris approche
       document.addEventListener("mousemove", (e) => {
         const rect = noBtn.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
@@ -148,10 +152,10 @@
         if (distance < 130) escapeNoButton();
       });
 
-      // Mobile: flee on touch
+      // Mobile
       document.addEventListener("touchstart", escapeNoButton);
 
-      // YES = HEART ATTACK
+      // Confetti quand elle clique Oui
       yesBtn.addEventListener("click", () => {
         const end = Date.now() + 3500;
 
@@ -163,6 +167,11 @@
           });
           if (Date.now() < end) requestAnimationFrame(frame);
         })();
+      });
+
+      // Message seulement si elle clique Non
+      noBtn.addEventListener("click", () => {
+        noMessage.style.display = "block";
       });
     </script>
   </body>
