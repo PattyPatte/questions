@@ -257,7 +257,7 @@ document.addEventListener("mousemove",(e)=>{
   const cx=rect.left+rect.width/2;
   const cy=rect.top+rect.height/2;
   const distance=Math.hypot(e.clientX-cx,e.clientY-cy);
-  if(distance<130) escapeNoButton();
+  if(distance<55) escapeNoButton();
 });
 
 document.addEventListener("touchstart", escapeNoButton);
