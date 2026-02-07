@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be My Valentine 💖</title>
 
-<!-- Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
@@ -33,7 +32,6 @@ body{
   padding:40px;
 }
 
-/* Carte */
 .card{
   background:white;
   width:520px;
@@ -44,7 +42,7 @@ body{
   box-shadow:0 40px 80px rgba(0,0,0,0.18);
 }
 
-/* Ligne images */
+/* Images */
 .top-media{
   display:flex;
   align-items:center;
@@ -56,7 +54,6 @@ body{
 .main-img{ width:120px; }
 .chat-gif{ width:120px; }
 
-/* Usure plus gros */
 #usureImg{
   display:none;
   width:220px;
@@ -104,13 +101,9 @@ button{
 
 <div class="card">
 
-  <!-- Images -->
   <div class="top-media">
     <img src="Poisson.png" class="main-img">
-
-    <!-- Usure apparaît après 7 fuites -->
     <img id="usureImg" src="Usure.png">
-
     <img src="Chat.gif" class="chat-gif">
   </div>
 
@@ -142,9 +135,14 @@ function escapeNoButton(){
 
   escapeCount++;
 
-  // 👇 Après 7 fuites
+  /* 👇 Usure après 7 */
   if(escapeCount>=7){
     usureImg.style.display="block";
+  }
+
+  /* 👇 Texte change après 10 */
+  if(escapeCount>=10){
+    noBtn.innerText="Tu peux pas m’attraper 😜";
   }
 
   const rect=noBtn.getBoundingClientRect();
