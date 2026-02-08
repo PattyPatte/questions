@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Be My Valentine 💖</title>
+<title>devoir INF 💖</title>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -60,6 +60,20 @@ body{
   100%{ margin-left:0; }
 }
 
+/* 💖 Texte sur fond rose */
+#bgText{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:36px;
+  color:#ff4d88;
+  font-weight:bold;
+  text-shadow:0 0 15px rgba(255,0,120,0.4);
+  display:none;
+  z-index:1;
+}
+
 /* Carte */
 .card{
   background:white;
@@ -82,7 +96,7 @@ body{
   display:none;
   flex-direction:column;
   align-items:center;
-  justify-content:center;   /* 👈 Centre verticalement */
+  justify-content:center;
   padding:12px;
   z-index:3;
 }
@@ -91,16 +105,6 @@ body{
   font-size:32px;
   color:#ff4d88;
   margin:0 0 8px 0;
-  padding:0;
-  text-align:center;
-  line-height:1.1;
-}
-
-/* Petit texte */
-#extraText{
-  font-size:20px;
-  color:#ff4d88;
-  margin:0 0 14px 0;
   text-align:center;
 }
 
@@ -110,7 +114,6 @@ body{
   object-fit:cover;
   object-position:center;
   border-radius:20px;
-  display:block;
 }
 
 /* Images haut */
@@ -175,21 +178,21 @@ button{
 
 <!-- 🐱 Chats -->
 <div id="catsBg">
-
   <img src="Chat.gif" class="dancing-cat" style="left:10%; animation-delay:0s;">
   <img src="Chat.gif" class="dancing-cat" style="left:30%; animation-delay:1s;">
   <img src="Chat.gif" class="dancing-cat" style="left:50%; animation-delay:2s;">
   <img src="Chat.gif" class="dancing-cat" style="left:70%; animation-delay:0.5s;">
   <img src="Chat.gif" class="dancing-cat" style="left:90%; animation-delay:1.5s;">
-
 </div>
+
+<!-- 💖 Texte fond rose -->
+<div id="bgText">Sexy Time?? 🌹</div>
 
 <div class="card">
 
   <!-- Overlay Happy -->
   <div id="happyOverlay">
     <h2>Pookie Happy!!!!!</h2>
-    <p id="extraText">Date night? 🌹</p>
     <img src="Happy.jpg">
   </div>
 
@@ -218,63 +221,16 @@ button{
 
 <script>
 
-const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
-const noMessage=document.getElementById("noMessage");
-const usureImg=document.getElementById("usureImg");
 const happyOverlay=document.getElementById("happyOverlay");
 const catsBg=document.getElementById("catsBg");
-
-let escapeCount=0;
-
-function escapeNoButton(){
-
-  noMessage.style.display="block";
-  escapeCount++;
-
-  if(escapeCount>=5){
-    usureImg.style.display="block";
-  }
-
-  if(escapeCount>=20){
-    noBtn.innerText="Ok je comprend, je vais aller voir Thea 💀";
-  }
-  else if(escapeCount>=15){
-    noBtn.innerText="Damnnnnn 😭";
-  }
-  else if(escapeCount>=10){
-    noBtn.innerText="Quoi?!?! 😳";
-  }
-  else if(escapeCount>=5){
-    noBtn.innerText="Tu peux pas m’attraper 😤";
-  }
-
-  const rect=noBtn.getBoundingClientRect();
-  const x=Math.random()*(window.innerWidth-rect.width);
-  const y=Math.random()*(window.innerHeight-rect.height);
-
-  noBtn.style.position="fixed";
-  noBtn.style.left=x+"px";
-  noBtn.style.top=y+"px";
-}
-
-document.addEventListener("mousemove",(e)=>{
-  const rect=noBtn.getBoundingClientRect();
-  const cx=rect.left+rect.width/2;
-  const cy=rect.top+rect.height/2;
-  const distance=Math.hypot(e.clientX-cx,e.clientY-cy);
-
-  if(distance<100){
-    escapeNoButton();
-  }
-});
-
-document.addEventListener("touchstart",escapeNoButton);
+const bgText=document.getElementById("bgText");
 
 yesBtn.addEventListener("click",()=>{
 
   happyOverlay.style.display="flex";
   catsBg.style.display="block";
+  bgText.style.display="block";
 
   const end=Date.now()+4000;
 
