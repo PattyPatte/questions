@@ -99,9 +99,13 @@ body{
 
 #happyOverlay img{
   width:100%;
-  max-height:70vh;
-  object-fit:contain;
+  height:65vh;              /* 👈 FIX ICI (vh pas hv) */
+  object-fit:cover;
+  object-position:center;
+ /* max-height:70vh;
+  object-fit:contain;*/
   border-radius:20px;
+  display:block;
 }
 
 /* Images haut */
