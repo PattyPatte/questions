@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3Be My Valentine 💖</title>
+<title>4Be My Valentine 💖</title>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
@@ -97,8 +97,11 @@ body{
 #happyOverlay img{
   width:100%;
   height:65vh;
-  object-fit:cover;
+  width:auto;
+  height:auto;
+  object-fit:contain;
   border-radius:20px;
+  display:block;
 }
 
 /* 💖 Ligne rose + texte */
@@ -240,7 +243,7 @@ function escapeNoButton(){
 
   if(escapeCount>=5){
     usureImg.style.display="block";
-    noBtn.innerText="Tu peux pas m’attraper 😤";
+    noBtn.innerText="Tu peux pas m’attraper 😏"; 
   }
   if(escapeCount>=10){
     noBtn.innerText="Quoi?!?! 😳";
