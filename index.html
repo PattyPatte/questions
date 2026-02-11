@@ -119,7 +119,7 @@ body{
   display:block;
 }
 
-/* Images haut */
+/* ✅ Images haut — dimensionnement propre */
 .top-media{
   display:flex;
   align-items:center;
@@ -128,10 +128,15 @@ body{
   margin-bottom:20px;
 }
 
-.main-img{ width:120px; }
-.chat-gif{ width:120px; }
-
-/* ✅ SUPPRIMÉ: #usureImg (plus d’image grosse) */
+/* toutes les images du haut ont la même taille */
+.top-media img{
+  width:120px;
+  height:120px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:14px;
+  display:block;
+}
 
 h1{
   font-size:24px;
@@ -169,6 +174,9 @@ button{
 
 .Chat_Heureux-img{
   width:24px;
+  height:24px;
+  object-fit:cover;
+  border-radius:6px;
 }
 </style>
 </head>
@@ -217,9 +225,12 @@ button{
 
   <!-- Images -->
   <div class="top-media">
-    <img src="singe_pense.png" class="main-img" alt="singe_pense">
-    <img id="Monkey With HairImg" src="Monkey With Hair.jpg" alt="Monkey With Hair">
-    <img src="Chat.gif" class="chat-gif" alt="Chat">
+    <img src="singe_pense.png" alt="singe_pense">
+
+    <!-- ✅ Celle-ci apparaît après 5 fuites -->
+    <img id="monkeyHairImg" src="Monkey With Hair.jpg" alt="Monkey With Hair" style="display:none;">
+
+    <img src="Chat.gif" alt="Chat">
   </div>
 
   <h1>Poupou, veux-tu être ma valentine?</h1>
@@ -228,8 +239,6 @@ button{
     <button id="yesBtn">Oui 💖</button>
     <button id="noBtn">Non 🙃</button>
   </div>
-
-  <!-- ✅ SUPPRIMÉ: image grosse (usureImg) -->
 
   <div id="noMessage" class="note" style="display:none;">
     <span class="msg-text">
@@ -244,7 +253,7 @@ button{
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
 const noMessage=document.getElementById("noMessage");
-/* ✅ SUPPRIMÉ: const usureImg=document.getElementById("usureImg"); */
+const monkeyHairImg=document.getElementById("monkeyHairImg");
 const happyOverlay=document.getElementById("happyOverlay");
 const catsBg=document.getElementById("catsBg");
 const bgText=document.getElementById("bgText");
@@ -257,8 +266,12 @@ function escapeNoButton(){
   noMessage.style.display="block";
   escapeCount++;
 
-  /* ✅ SUPPRIMÉ: affichage usureImg après 5 fuites */
+  // ✅ Affiche Monkey With Hair après 5 fuites
+  if(escapeCount>=5 && monkeyHairImg){
+    monkeyHairImg.style.display="block";
+  }
 
+  // Texte évolutif du bouton
   if(escapeCount>=12){
     noBtn.innerText="Ok je comprend, je vais aller voir Thea 💀";
   } else if(escapeCount>=9){
@@ -269,6 +282,7 @@ function escapeNoButton(){
     noBtn.innerText="Tu peux pas m’attraper 😏";
   }
 
+  // Verrouille la position initiale la première fois, puis fuit
   if(!escaped){
     initialRect=noBtn.getBoundingClientRect();
     noBtn.style.position="fixed";
@@ -297,6 +311,7 @@ function escapeNoButton(){
   noBtn.style.top=y+"px";
 }
 
+// Fuite sur desktop quand la souris est proche
 document.addEventListener("mousemove",(e)=>{
   const rect=noBtn.getBoundingClientRect();
   const cx=rect.left+rect.width/2;
@@ -308,8 +323,10 @@ document.addEventListener("mousemove",(e)=>{
   }
 });
 
+// Mobile: fuit au toucher
 document.addEventListener("touchstart", escapeNoButton);
 
+// Oui: overlay + chats + texte fond + confettis côtés
 yesBtn.addEventListener("click",()=>{
   happyOverlay.style.display="flex";
   catsBg.style.display="block";
