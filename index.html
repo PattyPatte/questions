@@ -8,7 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
   font-family:"Poppins","Comic Sans MS",sans-serif;
@@ -135,6 +134,7 @@ body{
 #usureImg{
   display:none;
   width:220px;
+  margin:14px auto 0 auto;
 }
 
 h1{
@@ -174,7 +174,6 @@ button{
 .Chat_Heureux-img{
   width:24px;
 }
-
 </style>
 </head>
 
@@ -217,7 +216,7 @@ button{
   <!-- Overlay Happy -->
   <div id="happyOverlay">
     <h2>Pookie Happy!!!!!</h2>
-    <img src="Singe_heureux.jpg">
+    <img src="Singe_heureux.jpg" alt="Singe heureux">
   </div>
 
   <!-- Images -->
@@ -234,6 +233,9 @@ button{
     <button id="noBtn">Non 🙃</button>
   </div>
 
+  <!-- ✅ AJOUT: image "usure" remplacée par Chat_Heureux.jpg -->
+  <img id="usureImg" src="Chat_Heureux.jpg" alt="Chat heureux">
+
   <div id="noMessage" class="note" style="display:none;">
     <span class="msg-text">
       Non n’est pas une option
@@ -244,7 +246,6 @@ button{
 </div>
 
 <script>
-
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
 const noMessage=document.getElementById("noMessage");
@@ -258,18 +259,14 @@ let escaped=false;
 let initialRect=null;
 
 function escapeNoButton(){
-  // Affiche le message dès la 1ère fuite
   noMessage.style.display="block";
-
-  // Compteur de fuites
   escapeCount++;
 
   // Usure après 5 fuites
-  if(escapeCount>=5){
+  if(escapeCount>=5 && usureImg){
     usureImg.style.display="block";
   }
 
-  // Texte évolutif du bouton
   if(escapeCount>=12){
     noBtn.innerText="Ok je comprend, je vais aller voir Thea 💀";
   } else if(escapeCount>=9){
@@ -280,7 +277,6 @@ function escapeNoButton(){
     noBtn.innerText="Tu peux pas m’attraper 😏";
   }
 
-  // Verrouille la position initiale la première fois, puis fuit
   if(!escaped){
     initialRect=noBtn.getBoundingClientRect();
     noBtn.style.position="fixed";
@@ -294,7 +290,6 @@ function escapeNoButton(){
   const noRect=noBtn.getBoundingClientRect();
 
   let x,y,safe;
-
   do{
     x=Math.random()*(window.innerWidth-noRect.width-padding);
     y=Math.random()*(window.innerHeight-noRect.height-padding);
@@ -310,12 +305,10 @@ function escapeNoButton(){
   noBtn.style.top=y+"px";
 }
 
-// Fuite sur desktop quand la souris est proche (moins sensible)
 document.addEventListener("mousemove",(e)=>{
   const rect=noBtn.getBoundingClientRect();
   const cx=rect.left+rect.width/2;
   const cy=rect.top+rect.height/2;
-
   const distance=Math.hypot(e.clientX-cx,e.clientY-cy);
 
   if(distance<90){
@@ -323,10 +316,8 @@ document.addEventListener("mousemove",(e)=>{
   }
 });
 
-// Mobile: fuit au toucher
 document.addEventListener("touchstart", escapeNoButton);
 
-// Oui: overlay + chats + texte fond + confettis côtés
 yesBtn.addEventListener("click",()=>{
   happyOverlay.style.display="flex";
   catsBg.style.display="block";
@@ -340,7 +331,6 @@ yesBtn.addEventListener("click",()=>{
     if(Date.now()<end)requestAnimationFrame(frame);
   })();
 });
-
 </script>
 
 </body>
