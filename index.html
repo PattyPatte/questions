@@ -131,11 +131,7 @@ body{
 .main-img{ width:120px; }
 .chat-gif{ width:120px; }
 
-#usureImg{
-  display:none;
-  width:220px;
-  margin:14px auto 0 auto;
-}
+/* ✅ SUPPRIMÉ: #usureImg (plus d’image grosse) */
 
 h1{
   font-size:24px;
@@ -233,8 +229,7 @@ button{
     <button id="noBtn">Non 🙃</button>
   </div>
 
-  <!-- ✅ AJOUT: image "usure" remplacée par Chat_Heureux.jpg -->
-  <img id="usureImg" src="Chat_Heureux.jpg" alt="Chat heureux">
+  <!-- ✅ SUPPRIMÉ: image grosse (usureImg) -->
 
   <div id="noMessage" class="note" style="display:none;">
     <span class="msg-text">
@@ -249,7 +244,7 @@ button{
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
 const noMessage=document.getElementById("noMessage");
-const usureImg=document.getElementById("usureImg");
+/* ✅ SUPPRIMÉ: const usureImg=document.getElementById("usureImg"); */
 const happyOverlay=document.getElementById("happyOverlay");
 const catsBg=document.getElementById("catsBg");
 const bgText=document.getElementById("bgText");
@@ -262,10 +257,7 @@ function escapeNoButton(){
   noMessage.style.display="block";
   escapeCount++;
 
-  // Usure après 5 fuites
-  if(escapeCount>=5 && usureImg){
-    usureImg.style.display="block";
-  }
+  /* ✅ SUPPRIMÉ: affichage usureImg après 5 fuites */
 
   if(escapeCount>=12){
     noBtn.innerText="Ok je comprend, je vais aller voir Thea 💀";
